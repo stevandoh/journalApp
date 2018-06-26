@@ -1,8 +1,15 @@
 package com.stevandoh.journalapp.journalapp.models;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity(tableName = "entries")
 public class EntryEntity {
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private Date date;
     private String content;
@@ -31,6 +38,7 @@ public class EntryEntity {
         this.content = content;
     }
 
+    @Ignore
     public EntryEntity() {
     }
 
@@ -40,6 +48,7 @@ public class EntryEntity {
         this.content = content;
     }
 
+    @Ignore
     public EntryEntity(Date date, String content) {
         this.date = date;
         this.content = content;

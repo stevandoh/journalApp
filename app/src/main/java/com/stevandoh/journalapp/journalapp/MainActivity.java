@@ -1,5 +1,6 @@
 package com.stevandoh.journalapp.journalapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,12 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.stevandoh.journalapp.journalapp.Adapters.EntryAdapter;
+import com.stevandoh.journalapp.journalapp.models.EntryEntity;
+import com.stevandoh.journalapp.journalapp.utilities.SampleData;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,30 +33,49 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.fab)
     FloatingActionButton fab;
 
+    @OnClick(R.id.fab)
+    void setClickHandler() {
+        Intent intent = new Intent(this, EditActivity.class);
+        startActivity(intent);
+    }
+
+
+    private List<EntryEntity> entries = new ArrayList<>();
+    private EntryAdapter mEntryAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         
-        setRecyclerView();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+        entries.addAll(SampleData.getEntries());
+        setRecyclerView();
+
+        for (EntryEntity entry :entries){
+            Log.i("Entries",entry.toString());
+        }
     }
 
     private void setRecyclerView() {
         mRvList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRvList.setLayoutManager(linearLayoutManager);
+        mEntryAdapter = new EntryAdapter(this,entries);
+        mRvList.setAdapter(mEntryAdapter);
+
     }
 
     @Override

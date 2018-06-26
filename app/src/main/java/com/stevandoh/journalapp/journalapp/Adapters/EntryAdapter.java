@@ -1,7 +1,6 @@
 package com.stevandoh.journalapp.journalapp.Adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -22,9 +21,10 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     private final List<EntryEntity> mEntries;
     private final Context mContext;
 
-    public EntryAdapter(List<EntryEntity> mEntries, Context mContext) {
-        this.mEntries = mEntries;
+    public EntryAdapter(Context mContext, List<EntryEntity> mEntries) {
         this.mContext = mContext;
+        this.mEntries = mEntries;
+
     }
 
     @NonNull
