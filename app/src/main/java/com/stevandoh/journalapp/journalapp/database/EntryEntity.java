@@ -1,8 +1,7 @@
-package com.stevandoh.journalapp.journalapp.models;
+package com.stevandoh.journalapp.journalapp.database;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.Date;

@@ -1,7 +1,7 @@
 package com.stevandoh.journalapp.journalapp.utilities;
 
 
-import com.stevandoh.journalapp.journalapp.models.EntryEntity;
+import com.stevandoh.journalapp.journalapp.database.EntryEntity;
 
 import java.util.ArrayList;
 import java.util.Calendar;

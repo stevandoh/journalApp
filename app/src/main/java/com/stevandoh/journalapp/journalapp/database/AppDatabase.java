@@ -3,9 +3,11 @@ package com.stevandoh.journalapp.journalapp.database;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 @Database(entities = {EntryEntity.class}, version = 1)
+@TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DB_NAME = "app.db";
 
@@ -14,7 +16,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static final Object LOCK = new Object();
 
-    public abstract EntryEntity noteDao();
+    public abstract EntryDao entryDao();
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {

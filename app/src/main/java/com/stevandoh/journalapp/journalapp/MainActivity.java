@@ -1,21 +1,21 @@
 package com.stevandoh.journalapp.journalapp;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.stevandoh.journalapp.journalapp.Adapters.EntryAdapter;
-import com.stevandoh.journalapp.journalapp.models.EntryEntity;
-import com.stevandoh.journalapp.journalapp.utilities.SampleData;
+import com.stevandoh.journalapp.journalapp.database.EntryEntity;
+import com.stevandoh.journalapp.journalapp.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,11 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.rv_list)
     RecyclerView mRvList;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
+
+
+    private MainViewModel mViewModel;
+    private List<EntryEntity> entriesData = new ArrayList<>();
+    private EntryAdapter mEntryAdapter;
 
     @OnClick(R.id.fab)
     void setClickHandler() {
@@ -39,44 +42,52 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-    private List<EntryEntity> entries = new ArrayList<>();
-    private EntryAdapter mEntryAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-        entries.addAll(SampleData.getEntries());
+        toolbar.setTitle("Journal App");
+        setViewModel();
         setRecyclerView();
+    }
 
-        for (EntryEntity entry :entries){
-            Log.i("Entries",entry.toString());
-        }
+    private void setViewModel() {
+        final Observer<List<EntryEntity>> entriesObserver =
+                new Observer<List<EntryEntity>>() {
+                    @Override
+                    public void onChanged(@Nullable List<EntryEntity> entriesEntities) {
+                        entriesData.clear();
+                        entriesData.addAll(entriesEntities);
+
+                        if (mEntryAdapter == null) {
+                            mEntryAdapter = new EntryAdapter(
+                                    MainActivity.this, entriesData);
+                            mRvList.setAdapter(mEntryAdapter);
+                        } else {
+                            mEntryAdapter.notifyDataSetChanged();
+                        }
+
+                    }
+                };
+
+        mViewModel = ViewModelProviders.of(this)
+                .get(MainViewModel.class);
+        mViewModel.mEntries.observe(this, entriesObserver);
     }
 
     private void setRecyclerView() {
         mRvList.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRvList.setLayoutManager(linearLayoutManager);
-        mEntryAdapter = new EntryAdapter(this,entries);
-        mRvList.setAdapter(mEntryAdapter);
-
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                mRvList.getContext(), linearLayoutManager.getOrientation());
+        mRvList.addItemDecoration(dividerItemDecoration);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -93,10 +104,27 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_add_sample_data) {
+            addSampleData();
+            return true;
+        } else if (id == R.id.action_delete_all) {
+            deleteAllNotes();
             return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
+
+
+    private void deleteAllNotes() {
+        mViewModel.deleteAllNotes();
+    }
+
+    private void addSampleData() {
+        mViewModel.addSampleData();
+    }
+
+
 }
