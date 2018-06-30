@@ -1,4 +1,4 @@
-package com.stevandoh.journalapp.journalapp;
+package com.stevandoh.journalapp.journalapp.actvities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -17,7 +17,7 @@ import android.widget.EditText;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.mikepenz.materialize.color.Material;
+import com.stevandoh.journalapp.journalapp.R;
 import com.stevandoh.journalapp.journalapp.database.EntryEntity;
 import com.stevandoh.journalapp.journalapp.viewmodel.EditViewModel;
 

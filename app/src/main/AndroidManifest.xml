@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".actvities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -22,12 +22,24 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".EditActivity"
+            android:name=".actvities.EditActivity"
             android:label="@string/title_activity_edit"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".GoogleSignInActivity"
+            android:name=".actvities.GoogleSignInActivity"
             android:label="@string/title_activity_google_sign_in"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".actvities.BaseActivity"
+            android:label="@string/title_activity_base"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GLoginActivity"
+            android:label="@string/title_activity_glogin"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".actvities.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,14 +47,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".BaseActivity"
-            android:label="@string/title_activity_base"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".GLoginActivity"
-            android:label="@string/title_activity_glogin"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

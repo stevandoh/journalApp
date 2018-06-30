@@ -1,4 +1,4 @@
-package com.stevandoh.journalapp.journalapp;
+package com.stevandoh.journalapp.journalapp.actvities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.stevandoh.journalapp.journalapp.R;
 
 public class BaseActivity extends AppCompatActivity {
     public ProgressDialog mProgressDialog;

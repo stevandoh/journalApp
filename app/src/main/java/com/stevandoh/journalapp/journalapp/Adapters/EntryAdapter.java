@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.stevandoh.journalapp.journalapp.EditActivity;
+import com.stevandoh.journalapp.journalapp.actvities.EditActivity;
 import com.stevandoh.journalapp.journalapp.R;
 import com.stevandoh.journalapp.journalapp.database.EntryEntity;
 

@@ -1,4 +1,4 @@
-package com.stevandoh.journalapp.journalapp;
+package com.stevandoh.journalapp.journalapp.actvities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -26,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.stevandoh.journalapp.journalapp.R;
 import com.stevandoh.journalapp.journalapp.utilities.SharedPrefManager;
 
 public class GoogleSignInActivity extends AppCompatActivity implements
@@ -43,8 +42,6 @@ public class GoogleSignInActivity extends AppCompatActivity implements
     private String name, email;
     private String photo;
     private Uri photoUri;
-    private TextView mStatusTextView;
-    private TextView mDetailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +88,8 @@ public class GoogleSignInActivity extends AppCompatActivity implements
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        updateUI(currentUser);
     }
     // [END on_start_check_user]
 
@@ -112,7 +109,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
                 // [START_EXCLUDE]
-                updateUI(null);
+//                updateUI(null);
                 // [END_EXCLUDE]
             }
         }
@@ -151,7 +148,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
                             sharedPrefManager.savePhoto(mContext, photo);
 
 
-                            updateUI(user);
+//                            updateUI(user);
 
                             Toast.makeText(GoogleSignInActivity.this, "Login successful",
                                     Toast.LENGTH_SHORT).show();
@@ -165,7 +162,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
 //                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-                            updateUI(null);
+//                            updateUI(null);
                         }
 
                         // [START_EXCLUDE]
@@ -183,51 +180,51 @@ public class GoogleSignInActivity extends AppCompatActivity implements
     }
     // [END signin]
 
-    private void signOut() {
-        // Firebase sign out
-        mAuth.signOut();
+//    private void signOut() {
+//        // Firebase sign out
+//        mAuth.signOut();
+//
+//        // Google sign out
+//        mGoogleSignInClient.signOut().addOnCompleteListener(this,
+//                new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        updateUI(null);
+//                    }
+//                });
+//    }
 
-        // Google sign out
-        mGoogleSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
-    }
+//    private void revokeAccess() {
+//        // Firebase sign out
+//        mAuth.signOut();
+//
+//        // Google revoke access
+//        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
+//                new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        updateUI(null);
+//                    }
+//                });
+//    }
 
-    private void revokeAccess() {
-        // Firebase sign out
-        mAuth.signOut();
-
-        // Google revoke access
-        mGoogleSignInClient.revokeAccess().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        updateUI(null);
-                    }
-                });
-    }
-
-    private void updateUI(FirebaseUser user) {
-        hideProgressDialog();
-        if (user != null) {
-            Toast.makeText(getApplicationContext(), user.getEmail(), Toast.LENGTH_LONG).show();
-//            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-//            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-
-//            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-        } else {
-//            mStatusTextView.setText(R.string.signed_out);
-//            mDetailTextView.setText(null);
-
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
-        }
-    }
+//    private void updateUI(FirebaseUser user) {
+//        hideProgressDialog();
+//        if (user != null) {
+//            Toast.makeText(getApplicationContext(), user.getEmail(), Toast.LENGTH_LONG).show();
+////            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
+////            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+//
+////            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+////            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+//        } else {
+////            mStatusTextView.setText(R.string.signed_out);
+////            mDetailTextView.setText(null);
+//
+//            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+////            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
+//        }
+//    }
 
     @Override
     public void onClick(View v) {
@@ -259,12 +256,12 @@ public class GoogleSignInActivity extends AppCompatActivity implements
         }
     }
 
-    public void hideKeyboard(View view) {
-        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
+//    public void hideKeyboard(View view) {
+//        final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        if (imm != null) {
+//            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//        }
+//    }
 
     @Override
     public void onStop() {

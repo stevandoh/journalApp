@@ -41,6 +41,8 @@ dependencies {
 
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    implementation 'gr.pantrif:easy-android-splash-screen:0.0.1'
+    implementation 'com.mikepenz:fontawesome-typeface:5.0.6.0@aar'
 
     implementation("com.mikepenz:materialdrawer:6.0.8@aar") {
         transitive = true
