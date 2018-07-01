@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
 
-    @OnClick(R.id.fab)
+    @OnClick(R.id.fab_add)
     void setClickHandler() {
         Intent intent = new Intent(this, EditActivity.class);
         startActivity(intent);
@@ -88,17 +88,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDrawer(Toolbar toolbar) {
 
-//        mUsername = mSharedPrefManager.getName();
-//        mEmail = sharedPrefManager.getUserEmail();
-//        String uri = sharedPrefManager.getPhoto();
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.wave)
                 .addProfiles(
                         new ProfileDrawerItem()
-                                .withName(mSharedPrefManager.getName()
-                                ).withEmail(mSharedPrefManager.getUserEmail())
-                                .withIcon(mSharedPrefManager.getPhoto())
+                                .withName(mSharedPrefManager.getName())
+                                .withEmail(mSharedPrefManager.getUserEmail())
+
                 )
                 .build();
 
@@ -122,15 +119,8 @@ public class MainActivity extends AppCompatActivity {
                         // do something with the clicked item :D
                         if (drawerItem != null) {
                             Intent intent = null;
-//                            if (drawerItem. getIdentifier() == 1) {
-//                                intent = new Intent(MenuActivity.this,RegisterMeterActivity.class);
-//                            }
                             if (drawerItem.getIdentifier() == 0) {
-
                                 signOut();
-                            }
-                            if (intent != null) {
-                                MainActivity.this.startActivity(intent);
                             }
                         }
 
@@ -255,9 +245,21 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
+                        revokeAccess();
+
+
 
                     }
                 }).show();
+    }
+
+    private void revokeAccess() {
+        mGoogleSignInClient.revokeAccess()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                    }
+                });
     }
 
 

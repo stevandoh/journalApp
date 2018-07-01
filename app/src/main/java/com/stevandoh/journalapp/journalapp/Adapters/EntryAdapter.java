@@ -10,9 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.stevandoh.journalapp.journalapp.actvities.EditActivity;
 import com.stevandoh.journalapp.journalapp.R;
+import com.stevandoh.journalapp.journalapp.actvities.EditActivity;
 import com.stevandoh.journalapp.journalapp.database.EntryEntity;
+import com.stevandoh.journalapp.journalapp.utilities.SharedPreferencesFavorites;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.stevandoh.journalapp.journalapp.utilities.Constants.NOTE_ID_KEY;
+import static com.stevandoh.journalapp.journalapp.utilities.Constants.ENTRY_ID_KEY;
 
 public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> {
     private final List<EntryEntity> mEntries;
@@ -41,16 +42,31 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EntryAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final EntryAdapter.ViewHolder holder, int position) {
         final EntryEntity entry = mEntries.get(position);
+
+        final SharedPreferencesFavorites mSharedPreferencesFavorites =
+                new SharedPreferencesFavorites(mContext);
+        boolean favorite = mSharedPreferencesFavorites.get(entry.getId());
+
         holder.mTextView.setText(entry.getContent());
+        holder.mTextView.setSelected(favorite);
+        holder.mTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean result = mSharedPreferencesFavorites.toggle(entry.getId());
+                holder.mTextView.setSelected(result);
+
+            }
+        });
 
         holder.mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, EditActivity.class);
-                intent.putExtra(NOTE_ID_KEY, entry.getId());
+                intent.putExtra(ENTRY_ID_KEY, entry.getId());
                 mContext.startActivity(intent);
+
             }
         });
 

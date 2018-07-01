@@ -31,14 +31,6 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity
-            android:name=".actvities.BaseActivity"
-            android:label="@string/title_activity_base"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".GLoginActivity"
-            android:label="@string/title_activity_glogin"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".actvities.SplashScreenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -16,6 +16,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +28,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.stevandoh.journalapp.journalapp.R;
 import com.stevandoh.journalapp.journalapp.utilities.SharedPrefManager;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class GoogleSignInActivity extends AppCompatActivity implements
         View.OnClickListener {
 
@@ -36,6 +40,8 @@ public class GoogleSignInActivity extends AppCompatActivity implements
     public ProgressDialog mProgressDialog;
     // [END declare_auth]
     public SharedPrefManager sharedPrefManager;
+    @BindView(R.id.sign_in_button)
+    SignInButton signInButton;
     // [START declare_auth]
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
@@ -47,6 +53,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_sign_in);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,11 +63,11 @@ public class GoogleSignInActivity extends AppCompatActivity implements
 //        mDetailTextView = findViewById(R.id.detail);
 
         // Button listeners
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        signInButton.setOnClickListener(this);
 //        findViewById(R.id.sign_out_button).setOnClickListener(this);
 //        findViewById(R.id.disconnect_button).setOnClickListener(this);
         sharedPrefManager = new SharedPrefManager(mContext);
-        if (sharedPrefManager.getISLogged_IN()){
+        if (sharedPrefManager.getISLogged_IN()) {
             Intent intent = new Intent(GoogleSignInActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -157,7 +164,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
                             startActivity(intent);
                             finish();
 
-                        hideProgressDialog();
+                            hideProgressDialog();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

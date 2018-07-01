@@ -87,7 +87,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_star" />
+                            <entry key="color" value="673ab7" />
+                            <entry key="outputName" value="ic_star_hollow" />
                             <entry key="sourceFile" value="C:\Users\APPUSER4" />
                           </map>
                         </option>
