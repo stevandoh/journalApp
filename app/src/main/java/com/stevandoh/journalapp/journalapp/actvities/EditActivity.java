@@ -31,8 +31,8 @@ public class EditActivity extends AppCompatActivity {
 
     @BindView(R.id.txt_entry)
     EditText mTxtEntry;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
+//    @BindView(R.id.fab)
+//    FloatingActionButton fab;
 
     private EditViewModel mViewModel;
     private boolean mNewNote, mEditing;
@@ -58,30 +58,30 @@ public class EditActivity extends AppCompatActivity {
 
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (content != null && !content.isEmpty()) {
-//                    shareContent(content);
-                } else {
-                    new MaterialDialog.Builder(EditActivity.this)
-                            .title("Oops")
-                            .content("No content yet. Kindly add your thoughts before sharing")
-                            .positiveText(R.string.btn_ok)
-                            .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                @Override
-                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                                }
-                            })
-                            .show();
-                }
-
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if (content != null && !content.isEmpty()) {
+////                    shareContent(content);
+//                } else {
+//                    new MaterialDialog.Builder(EditActivity.this)
+//                            .title("Oops")
+//                            .content("No content yet. Kindly add your thoughts before sharing")
+//                            .positiveText(R.string.btn_ok)
+//                            .onPositive(new MaterialDialog.SingleButtonCallback() {
+//                                @Override
+//                                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+//
+//                                }
+//                            })
+//                            .show();
+//                }
+//
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     private void initViewModel() {
