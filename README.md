@@ -6,6 +6,8 @@ Journal App
 
 This app is built for the 7 Days of Code Challenge
 
+the APK is available in the folder named APK
+
 ## Authors
 
 * **Steve Dawsonn-Andoh** 
